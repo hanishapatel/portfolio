@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hanisha Patel | Full Stack Developer</title>
+<style>
+  :root{--bg:#0d0d0f;--surface:#16161a;--surface2:#1e1e24;--accent:#c97b3a;--accent2:#e8956b;--text:#f0ede8;--muted:#8b8680;--border:#2a2a32;--grad:linear-gradient(135deg,#c97b3a,#e8956b,#d4a96a);}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.6;}
+
+  nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(13,13,15,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;padding:1rem 2.5rem;}
+  .logo{font-size:1.2rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .nav-links{display:flex;gap:1.8rem;list-style:none;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:.875rem;transition:.2s;}
+  .nav-links a:hover{color:var(--text);}
+
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 2rem 4rem;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(201,123,58,.13) 0%,transparent 70%);}
+  .badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(201,123,58,.12);border:1px solid rgba(201,123,58,.3);border-radius:999px;padding:.35rem 1rem;font-size:.8rem;color:var(--accent2);margin-bottom:2rem;}
+  .badge span{width:7px;height:7px;border-radius:50%;background:var(--accent2);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  .hero h1{font-size:clamp(2.4rem,6vw,4.8rem);font-weight:800;line-height:1.1;letter-spacing:-1.5px;margin-bottom:1.2rem;}
+  .hero h1 .name{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .hero p{font-size:1.1rem;color:var(--muted);max-width:600px;margin-bottom:2.5rem;}
+  .btn-row{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;}
+  .btn{padding:.72rem 1.7rem;border-radius:8px;font-size:.92rem;font-weight:600;cursor:pointer;text-decoration:none;transition:.2s;}
+  .btn-primary{background:var(--grad);color:#fff;border:none;}
+  .btn-primary:hover{opacity:.85;transform:translateY(-1px);}
+  .btn-outline{background:transparent;color:var(--text);border:1px solid var(--border);}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent2);}
+
+  section{padding:5rem 2rem;max-width:1100px;margin:0 auto;}
+  .section-label{font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem;}
+  .section-title{font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;letter-spacing:-.5px;margin-bottom:.9rem;}
+  .section-sub{color:var(--muted);max-width:860px;margin-bottom:2.8rem;}
+  .divider{width:100%;height:1px;background:var(--border);}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:auto 1fr;gap:3rem;align-items:start;}
+  .avatar{width:200px;height:200px;border-radius:20px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:5rem;flex-shrink:0;}
+  .about-text p{color:var(--muted);margin-bottom:.9rem;font-size:.95rem;}
+  .tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;}
+  .tag{background:rgba(201,123,58,.1);border:1px solid rgba(201,123,58,.25);color:var(--accent2);border-radius:6px;padding:.28rem .75rem;font-size:.78rem;}
+  .ai-callout{margin-top:1.2rem;padding:1rem 1.2rem;background:rgba(201,123,58,.07);border:1px solid rgba(201,123,58,.2);border-radius:10px;font-size:.9rem;color:var(--text);}
+  .ai-callout strong{color:var(--accent2);}
+
+  /* SKILLS */
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(115px,1fr));gap:.9rem;}
+  .skill-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;transition:.2s;}
+  .skill-card:hover{border-color:var(--accent);transform:translateY(-3px);}
+  .skill-icon{width:36px;height:36px;margin:0 auto .5rem;display:flex;align-items:center;justify-content:center;}
+  .skill-icon img,.skill-icon svg{width:100%;height:100%;object-fit:contain;}
+  .skill-name{font-size:.78rem;color:var(--muted);}
+
+  /* EXPERIENCE */
+  .timeline{position:relative;padding-left:2rem;}
+  .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--border);}
+  .tl-item{position:relative;margin-bottom:2.8rem;}
+  .tl-dot{position:absolute;left:-2.38rem;top:.3rem;width:14px;height:14px;border-radius:50%;background:var(--grad);border:3px solid var(--bg);}
+  
+  .tl-company{font-size:1.1rem;font-weight:800;margin:.2rem 0 .05rem;}
+  .tl-role{color:var(--accent2);font-size:.92rem;margin-bottom:.2rem;}
+  .tl-date{font-size:.78rem;color:var(--accent);font-weight:600;letter-spacing:.05em;margin-bottom:.6rem;}
+  .tl-stack{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.6rem;}
+  .tl-stack span{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:.18rem .55rem;font-size:.72rem;color:var(--muted);}
+  .tl-bullets{list-style:none;padding:0;}
+  .tl-bullets li{color:var(--muted);font-size:.88rem;padding:.25rem 0 .25rem 1.1rem;position:relative;}
+  .tl-bullets li::before{content:'▸';position:absolute;left:0;color:var(--accent);}
+
+  /* PROJECTS */
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.4rem;}
+  .project-card{background:var(--surface);border:2px solid var(--border);border-radius:16px;padding:1.7rem;transition:.25s;position:relative;overflow:hidden;display:flex;flex-direction:column;}
+  .project-card::before{content:'';position:absolute;top:0;left:0;right:0;background:var(--grad);opacity:0;transition:.25s;}
+  .project-card:hover{border-color:var(--accent);transform:translateY(-4px);}
+  .project-card:hover::before{opacity:1;}
+  .project-title{font-size:1.05rem;font-weight:700;margin-bottom:.45rem;}
+  .project-desc{color:var(--muted);font-size:.87rem;margin-bottom:1.1rem;flex:1;}
+  .project-tech{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1rem;}
+  .tech-badge{border-radius:5px;padding:.22rem .6rem;font-size:.72rem;font-weight:600;}
+  /* tech badge colours */
+  .tb-java{background:rgba(237,120,55,.15);border:1px solid rgba(237,120,55,.35);color:#f6804a;}
+  .tb-react{background:rgba(97,218,251,.1);border:1px solid rgba(97,218,251,.3);color:#61dafb;}
+  .tb-node{background:rgba(104,160,99,.15);border:1px solid rgba(205, 57, 218, 0.35);color:#9f36e6;}
+  .tb-python{background:rgba(255,212,59,.1);border:1px solid rgba(255,212,59,.3);color:#ffd43b;}
+  .tb-mongo{background:rgba(77,179,61,.12);border:1px solid rgba(77,179,61,.3);color:#4db33d;}
+  .tb-spring{background:rgba(109,179,63,.12);border:1px solid rgba(69, 144, 18, 0.3);color:#b0dd91;}
+  .tb-stripe{background:rgba(99,91,255,.12);border:1px solid rgba(99,91,255,.3);color:#635bff;}
+  .tb-ml{background:rgba(255,165,0,.12);border:1px solid rgba(255,165,0,.3);color:#ffa500;}
+  .tb-php{background:rgba(119,123,179,.15);border:1px solid rgba(119,123,179,.35);color:#777bb3;}
+  .tb-dotnet{background:rgba(81,43,212,.15);border:1px solid rgba(81,43,212,.35);color:#9b72cf;}
+  .tb-sql{background:rgba(0,114,206,.12);border:1px solid rgba(0,114,206,.3);color:#0072ce;}
+  .tb-default{background:var(--surface2);border:1px solid var(--border);color:var(--muted);}
+  .project-link{font-size:.83rem;color:var(--accent2);text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;}
+  .project-link:hover{text-decoration:underline;}
+  .btn-work{background:rgba(201,123,58,.1);border:1px solid rgba(201,123,58,.25);color:var(--accent2);border-radius:6px;padding:.28rem .75rem;font-size:.78rem;}
+
+  /* CONTACT */
+  .contact-box{background:radial-gradient(ellipse 80% 120% at 50% 100%,rgba(201,123,58,.08) 0%,transparent 70%),var(--surface);border:1px solid var(--border);border-radius:20px;padding:3rem;text-align:center;}
+  .contact-box h2{font-size:2rem;font-weight:800;margin-bottom:.7rem;}
+  .contact-box p{color:var(--muted);margin-bottom:2rem;}
+  .social-row{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;}
+  .social-btn{display:flex;align-items:center;gap:.6rem;padding:.62rem 1.3rem;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);text-decoration:none;font-size:.88rem;transition:.2s;}
+  .social-btn:hover{border-color:var(--accent);color:var(--accent2);}
+  .social-btn svg{width:18px;height:18px;flex-shrink:0;}
+
+  footer{text-align:center;padding:2rem;color:var(--muted);font-size:.82rem;border-top:1px solid var(--border);}
+  footer span{color:var(--accent2);}
+
+  @media(max-width:700px){
+    .about-grid{grid-template-columns:1fr;}
+    .avatar{margin:0 auto;}
+    nav{padding:1rem 1.2rem;}
+    .nav-links{gap:1rem;}
+  }
+  /* Per-project color themes */
+.pc-teal  { --pc: #2dd4bf; --pc-bg: rgba(45,212,191,.08); --pc-border: rgba(45,212,191,.25); }
+.pc-blue  { --pc: #60a5fa; --pc-bg: rgba(96,165,250,.08); --pc-border: rgba(96,165,250,.25); }
+.pc-purple{ --pc: #a78bfa; --pc-bg: rgba(167,139,250,.08); --pc-border: rgba(167,139,250,.25); }
+.pc-pink  { --pc: #f472b6; --pc-bg: rgba(244,114,182,.08); --pc-border: rgba(244,114,182,.25); }
+.pc-amber { --pc: #fbbf24; --pc-bg: rgba(251,191,36,.08);  --pc-border: rgba(251,191,36,.25); }
+.pc-green { --pc: #4ade80; --pc-bg: rgba(74,222,128,.08);  --pc-border: rgba(74,222,128,.25); }
+
+[class*="pc-"] { border-color: var(--pc-border) !important; }
+[class*="pc-"]:hover { border-color: var(--pc) !important; box-shadow: 0 0 18px var(--pc-bg); }
+[class*="pc-"]::before { background: linear-gradient(135deg, var(--pc), color-mix(in srgb, var(--pc) 60%, white)) !important; }
+[class*="pc-"] .project-title { color: var(--pc); }
+
+.pb { border-radius:5px; padding:.22rem .6rem; font-size:.72rem; font-weight:600; border:1px solid; }
+/* .pb-solid { background: var(--pc); color: #0d0d0f; border-color: var(--pc); } */
+.pb-light { background: var(--pc-bg); color: var(--pc); border-color: var(--pc-border); }
+/* .pb-muted { background: rgba(255,255,255,.05); color: color-mix(in srgb, var(--pc) 70%, white); border-color: rgba(255,255,255,.1); } */
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">hanisha.dev</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge"><span></span> Open to new opportunities</div>
+  <h1>Hi, I'm <span class="name">Hanisha Patel</span><br/>Full Stack Developer</h1>
+  <p>3+ years building scalable web apps with Java, Spring Boot, React & Node.js — from enterprise payroll systems to real-time video platforms. Currently exploring the world of AI & ML.</p>
+  <div class="btn-row">
+    <a href="#projects" class="btn btn-primary">View My Work</a>
+    <a href="#contact" class="btn btn-outline">Get In Touch</a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About Me</div>
+  <div class="about-grid">
+    <div class="avatar">👩‍💻</div>
+    <div class="about-text">
+      <h2 class="section-title">Who I Am</h2>
+      <p>I'm a Full Stack Developer with 3+ years of experience delivering scalable, high-performance web applications across product, enterprise, and startup environments. </p>
+      <p>🎓 <strong>MS in Computer Science</strong> — University of Houston–Clear Lake, Houston, USA<br/>🎓 <strong>BE in Computer Engineering</strong> — University of Mumbai</p>
+      <p>📧 hanishapatel2899@gmail.com &nbsp;·&nbsp; 📞 +91-9819111434</p>
+      <div class="ai-callout">
+        🤖 <strong>Venturing into AI/ML</strong> — Actively building my knowledge in machine learning and artificial intelligence, working on projects that blend my full-stack background with intelligent systems. Making my way into the AI space, one model at a time.
+      </div>
+      <div class="tags">
+        <span class="tag">Full Stack</span>
+        <span class="tag">React JS</span>
+        <span class="tag">Spring Boot</span>
+        <span class="tag">Microservices</span>
+        <span class="tag">AWS Cloud</span>
+        <span class="tag">CI/CD</span>
+        <span class="tag">AI/ML Explorer</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">What I Know</div>
+  <h2 class="section-title">Skills & Tech Stack</h2>
+  <p class="section-sub">A full-spectrum stack — backend services, databases, cloud infrastructure, and modern frontends.</p>
+  <div class="skills-grid" id="skillsGrid"></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">My Journey</div>
+  <h2 class="section-title">Work Experience</h2>
+  <p class="section-sub">From enterprise payroll dashboards to real-time video conferencing — here's where I've made an impact.</p>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      
+      <div class="tl-company">Support Enigma · Houston, USA</div>
+      <div class="tl-role">Full Stack Developer</div>
+      <div class="tl-date">Aug 2024 – March 2026</div>
+      <div class="tl-stack"><span>Java</span><span>Spring Boot</span><span>React JS</span><span>SQL Server</span></div>
+      <ul class="tl-bullets">
+        <li>Built React UI components for an enterprise payroll dashboard serving HR & finance workflows.</li>
+        <li>Reduced user navigation time by ~30% through optimized state management with React Hooks.</li>
+        <li>Developed Java/Spring Boot REST APIs and optimized SQL Server queries, cutting report load times by ~40%.</li>
+        <li>Set up CI/CD pipelines that reduced manual release steps by ~35% and post-deployment integration issues.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      
+      <div class="tl-company">IpserLab · Houston, USA</div>
+      <div class="tl-role">Software Engineer</div>
+      <div class="tl-date">Aug 2023 – Jul 2024</div>
+      <div class="tl-stack"><span>WebRTC</span><span>Java</span><span>React JS</span><span>WebSocket</span><span>Material UI</span></div>
+      <ul class="tl-bullets">
+        <li>Architected a WebRTC video conferencing platform from scratch with real-time WebSocket signaling.</li>
+        <li>Reduced page load times by 25% via optimized React Hooks, Axios data-fetching, and async state management.</li>
+        <li>Built scalable Java backend services with structured error handling, ensuring high uptime under concurrent load.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      
+      <div class="tl-company">Advanced School of Computer Information India · Mumbai, India</div>
+      <div class="tl-role">Web Developer Intern</div>
+      <div class="tl-date">Dec 2019</div>
+      <div class="tl-stack"><span>WordPress</span><span>HTML/CSS/JS</span><span>PHP</span><span>Elementor</span></div>
+      <ul class="tl-bullets">
+        <li>Developed a responsive EdTech web portal for 1,000+ users with role-based content and custom plugins.</li>
+        <li>Implemented PHP backend integrations for form automation and role-based access control.</li>
+        <li>Conducted mobile QA testing, identifying and reporting bugs across devices for a stable pre-launch.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">What I've Built</div>
+  <h2 class="section-title">Projects</h2>
+  <p class="section-sub">Personal, academic, and open-source projects showcasing full-stack and ML capabilities.</p>
+  <div class="projects-grid">
+    <div class="project-card pc-teal">
+  <div class="project-title">🛒 E-Commerce Platform</div>
+  <div class="project-desc">Full-stack MERN e-commerce app on Vercel with product browsing, cart management, variant selection, and dual payment gateways (Stripe & Razorpay).</div>
+  <div class="project-tech">
+    <span class="pb pb-light">MongoDB</span>
+    <span class="pb pb-light">Express.js</span>
+    <span class="pb pb-light">React JS</span>
+    <span class="pb pb-light">Node.js</span>
+    <span class="pb pb-light">Stripe</span>
+    <span class="pb pb-light">Razorpay</span>
+  </div>
+  <a href="https://github.com/hanishapatel/ecommerce-website" target="_blank" class="project-link" style="color:var(--pc)">GitHub →</a>
+</div>
+
+<div class="project-card pc-blue">
+  <div class="project-title">🎬 Movie Review App</div>
+  <div class="project-desc">Full-stack movie review platform with Spring Boot REST APIs, a React frontend, and MongoDB — featuring pagination and full-text search.</div>
+  <div class="project-tech">
+    <span class="pb pb-light">Spring Boot</span>
+    <span class="pb pb-light">React JS</span>
+    <span class="pb pb-light">MongoDB</span>
+    <span class="pb pb-light">Java</span>
+  </div>
+  <a href="https://github.com/hanishapatel/Movie-Review-App" target="_blank" class="project-link" style="color:var(--pc)">GitHub →</a>
+</div>
+
+<div class="project-card pc-purple">
+  <div class="project-title">🔍 Fake News Detection on Tweets</div>
+  <div class="project-desc">Harnesses Python & ML to sift through tweets using a sophisticated model. Integrates with the Twitter API to evaluate news authenticity via an intuitive web interface.</div>
+  <div class="project-tech">
+    <span class="pb pb-light">Python</span>
+    <span class="pb pb-light">Machine Learning</span>
+    <span class="pb pb-light">Twitter API</span>
+    <span class="pb pb-light">NLP</span>
+  </div>
+  <a href="https://github.com/hanishapatel/Fake-Tweet-Detection-using-Machine-Learning" target="_blank" class="project-link" style="color:var(--pc)">GitHub →</a>
+</div>
+
+<div class="project-card pc-pink">
+  <div class="project-title">🚂 Amtrak Railway Management System</div>
+  <div class="project-desc">Intuitive web interface for ticket purchasing, streamlining the process for passengers. Integrates PHP, JavaScript, and MySQL for efficient operational workflows.</div>
+  <div class="project-tech">
+    <span class="pb pb-light">PHP</span>
+    <span class="pb pb-light">JavaScript</span>
+    <span class="pb pb-light">MySQL</span>
+    <span class="pb pb-light">HTML/CSS</span>
+  </div>
+  <a href="https://github.com/hanishapatel/Amtrak-Railway-Management-System" target="_blank" class="project-link" style="color:var(--pc)">GitHub →</a>
+</div>
+
+<div class="project-card pc-amber">
+  <div class="project-title">🏺 E-Ceramic Store</div>
+  <div class="project-desc">Ceramic Store Management System with secure authentication, product categorization, event management, and order tracking. Built with ASP.NET and SQL Server.</div>
+  <div class="project-tech">
+    <span class="pb pb-light">ASP.NET</span>
+    <span class="pb pb-light">SQL Server</span>
+    <span class="pb pb-light">JavaScript</span>
+    <span class="pb pb-light">Ajax</span>
+    <span class="pb pb-light">HTML/CSS</span>
+  </div>
+  <a href="https://github.com/hanishapatel/E-Ceramic-Store" target="_blank" class="project-link" style="color:var(--pc)">GitHub →</a>
+</div>
+
+<div class="project-card pc-green">
+  <div class="project-title">🧮 React Calculator</div>
+  <div class="project-desc">A clean, responsive calculator performing basic arithmetic in real time. Built with React components and useState hooks for smooth, interactive state management.</div>
+  <div class="project-tech">
+    <span class="pb pb-light">React JS</span>
+    <span class="pb pb-light">HTML/CSS</span>
+  </div>
+  <a href="https://hanishapatel-react-calculator.netlify.app/" target="_blank" class="project-link" style="color:var(--pc)">Live Demo →</a>
+</div>
+
+    <!-- <div class="project-card">
+      <div class="project-title">🛒 E-Commerce Platform</div>
+      <div class="project-desc">Full-stack MERN e-commerce app on Vercel with product browsing, cart management, variant selection, and dual payment gateways (Stripe & Razorpay).</div>
+      <div class="project-tech">
+        <span class="tech-badge tb-mongo">MongoDB</span>
+        <span class="tech-badge tb-node">Express.js</span>
+        <span class="tech-badge tb-react">React JS</span>
+        <span class="tech-badge tb-node">Node.js</span>
+        <span class="tech-badge tb-stripe">Stripe</span>
+        <span class="tech-badge tb-stripe">Razorpay</span>
+      </div>
+      <a href="https://github.com/hanishapatel" target="_blank" class="project-link">GitHub →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-title">🎬 Movie Review App</div>
+      <div class="project-desc">Full-stack movie review platform with Spring Boot REST APIs, a React frontend, and MongoDB — featuring pagination and full-text search.</div>
+      <div class="project-tech">
+        <span class="tech-badge tb-spring">Spring Boot</span>
+        <span class="tech-badge tb-react">React JS</span>
+        <span class="tech-badge tb-mongo">MongoDB</span>
+        <span class="tech-badge tb-java">Java</span>
+      </div>
+      <a href="https://github.com/hanishapatel" target="_blank" class="project-link">GitHub →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-title">🔍 Fake News Detection on Tweets</div>
+      <div class="project-desc">Harnesses Python & ML to sift through tweets using a sophisticated model. Integrates with the Twitter API to evaluate news authenticity and presents analysis through an intuitive web interface.</div>
+      <div class="project-tech">
+        <span class="tech-badge tb-python">Python</span>
+        <span class="tech-badge tb-ml">Machine Learning</span>
+        <span class="tech-badge tb-ml">Twitter API</span>
+        <span class="tech-badge tb-default">NLP</span>
+      </div>
+      <a href="https://github.com/hanishapatel/Fake-Tweet-Detection-using-Machine-Learning" target="_blank" class="project-link">GitHub →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-title">🚂 Amtrak Railway Management System</div>
+      <div class="project-desc">Intuitive web interface for ticket purchasing, streamlining the process for passengers. Integrates PHP, JavaScript, and MySQL for efficient operational workflows and a modern user experience.</div>
+      <div class="project-tech">
+        <span class="tech-badge tb-php">PHP</span>
+        <span class="tech-badge tb-default">JavaScript</span>
+        <span class="tech-badge tb-sql">MySQL</span>
+        <span class="tech-badge tb-default">HTML/CSS</span>
+      </div>
+      <a href="https://github.com/hanishapatel/Amtrak-Railway-Management-System" target="_blank" class="project-link">GitHub →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-title">🏺 E-Ceramic Store</div>
+      <div class="project-desc">Ceramic Store Management System with secure authentication, product categorization, event management, and order tracking. Built with ASP.NET and SQL Server for efficient data handling.</div>
+      <div class="project-tech">
+        <span class="tech-badge tb-dotnet">ASP.NET</span>
+        <span class="tech-badge tb-sql">SQL Server</span>
+        <span class="tech-badge tb-default">JavaScript</span>
+        <span class="tech-badge tb-default">Ajax</span>
+        <span class="tech-badge tb-default">HTML/CSS</span>
+      </div>
+      <a href="https://github.com/hanishapatel/E-Ceramic-Store" target="_blank" class="project-link">GitHub →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-title">🧮 React Calculator</div>
+      <div class="project-desc">A clean, responsive calculator performing basic arithmetic operations in real time. Built with React components and useState hooks for smooth, interactive state management.</div>
+      <div class="project-tech">
+        <span class="tech-badge tb-react">React JS</span>
+        <span class="tech-badge tb-default">useState Hook</span>
+        <span class="tech-badge tb-default">CSS</span>
+      </div>
+      <a href="https://hanishapatel-react-calculator.netlify.app/" target="_blank" class="project-link">Live Demo →</a>
+    </div> -->
+
+    <div class="tags">
+      <a href="https://github.com/hanishapatel" target="_blank" class="tag" style="font-size: medium; text-decoration: none;">View More Work</a>
+    </div>
+
+
+    
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-box">
+    <div class="section-label" style="text-align:center">Let's Talk</div>
+    <h2>Open to Work & Collaborations</h2>
+    <p>Looking for full-stack opportunities in product, enterprise, or startup environments. Let's build something great together.</p>
+    <a href="mailto:hanishapatel2899@gmail.com" class="btn btn-primary" style="display:inline-block;margin-bottom:2rem;">Say Hello →</a>
+    <div class="social-row">
+      <a href="https://www.linkedin.com/in/hanisha-patel/" target="_blank" class="social-btn">
+        <svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/hanishapatel" target="_blank" class="social-btn">
+        <svg viewBox="0 0 24 24" fill="#f0ede8"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        GitHub
+      </a>
+      <a href="mailto:hanishapatel2899@gmail.com" class="social-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#e8956b" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+        Email
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>Built with <span>♥</span> by Hanisha Patel · 2026</footer>
+
+<script>
+const skills = [
+  { name: "Java", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" },
+  { name: "Spring Boot", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg" },
+  { name: "React JS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" },
+  { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" },
+  { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" },
+  { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
+  { name: "C#", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" },
+  { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" },
+  { name: "Express.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg" },
+  { name: "MySQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" },
+  { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" },
+  { name: "SQL Server", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/microsoftsqlserver/microsoftsqlserver-original.svg" },
+  { name: "Firebase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg" },
+  { name: "AWS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+  { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" },
+  //{ name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" },
+  { name: "Tailwind CSS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" },
+  { name: "Material UI", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/materialui/materialui-original.svg" },
+  { name: "PHP", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" },
+  { name: "ASP.NET", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dotnetcore/dotnetcore-original.svg" },
+  { name: "Visual Studio", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visualstudio/visualstudio-original.svg" },
+  { name: "IntelliJ", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/intellij/intellij-original.svg" },
+  //{ name: "GitHub", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original-wordmark.svg"},
+  { name: "Postman", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg" },
+  { name: "Swagger", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/swagger/swagger-original.svg" },
+  { name: "REST API", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg" },
+  { name: "Bootstrap", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" },
+];
+
+const grid = document.getElementById('skillsGrid');
+skills.forEach(s => {
+  grid.innerHTML += `
+    <div class="skill-card">
+      <div class="skill-icon"><img src="${s.logo}" alt="${s.name}" onerror="this.outerHTML='<span style=\'font-size:1.5rem\'>🔧</span>'"/></div>
+      <div class="skill-name">${s.name}</div>
+    </div>`;
+});
+</script>
+</body>
+</html>
